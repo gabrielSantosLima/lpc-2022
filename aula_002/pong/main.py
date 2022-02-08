@@ -1,5 +1,17 @@
 import turtle
 
+def move_up(turtle: turtle.Turtle):
+  y = turtle.ycor()
+  if(y < 250): y += 30
+  else: y = 250
+  turtle.sety(y)
+
+def move_down(turtle: turtle.Turtle):
+  y = turtle.ycor()
+  if(y > -250): y += -30
+  else: y = -250
+  turtle.sety(y)
+
 def main():
 
   screen = turtle.Screen()
@@ -8,21 +20,21 @@ def main():
   screen.setup(width=800, height=660)
   screen.tracer(0)
 
-  painter = turtle.Turtle()
-  painter.speed(0)
-  painter.shape('square')
-  painter.color('white')
-  painter.shapesize(stretch_wid=5, stretch_len=1)
-  painter.up()
-  painter.goto(-350, 0)
+  player_1 = turtle.Turtle()
+  player_1.speed(0)
+  player_1.shape('square')
+  player_1.color('white')
+  player_1.shapesize(stretch_wid=5, stretch_len=1)
+  player_1.penup()
+  player_1.goto(-350, 0)
 
-  painter_2 = turtle.Turtle()
-  painter_2.speed(0)
-  painter_2.shape('square')
-  painter_2.color('white')
-  painter_2.shapesize(stretch_wid=5, stretch_len=1)
-  painter_2.up()
-  painter_2.goto(350, 0)
+  player_2 = turtle.Turtle()
+  player_2.speed(0)
+  player_2.shape('square')
+  player_2.color('white')
+  player_2.shapesize(stretch_wid=5, stretch_len=1)
+  player_2.penup()
+  player_2.goto(350, 0)
   
   ball = turtle.Turtle()
   ball.speed(0)
@@ -41,6 +53,12 @@ def main():
   hud.penup()
   hud.goto(0, 260)
   hud.write("0 : 0", align="center", font=("Roboto", 24, "normal"))
+
+  screen.listen()
+  screen.onkeypress(lambda: move_up(player_1), "Up")
+  screen.onkeypress(lambda: move_down(player_1), "Down")
+  screen.onkeypress(lambda: move_up(player_2), "w")
+  screen.onkeypress(lambda: move_down(player_2), "s")
 
   while True:
     screen.update()
